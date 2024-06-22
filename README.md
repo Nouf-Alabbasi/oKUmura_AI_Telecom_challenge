@@ -1,5 +1,9 @@
 # oKUmura_AI_Telecom_challenge
 
+⚫ Note: 
+* current working version can be found in Testing_N branch
+* filename: "Phi_2_Base_v_3_Telco_RAG_shorter_context_cat.ipynb"
+
 <!-- How to set up folders and where each file is saved-->
 ## Folder set up
 
