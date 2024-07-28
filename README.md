@@ -33,21 +33,30 @@
 1. Clone this repo
 2. Install packages from requirements (pip install -r requirements.txt)
 3. Download data
-   - Join the competition (https://zindi.africa/competitions/specializing-large-language-models-for-telecom-networks)
    - Download competition data and copy it to data/ directory inside your cloned repository
    - Extract rel18 folder from rel18.rar
-4. Run vectore_store_for_rag.py
-5. Run fine_tuning.py
-6. Run main.py
+4. clone the longLM repo from https://github.com/datamllab/LongLM into the cloned repository
+5. Run vectore_store_for_rag.py to obtain and store the vectorized documents
+<!-- added flash_attn to requirements.txt -->
+6. Run fine_tuning.py to finetune the model on the teleqna training with retreived context
+7. Run main.py to run inference on the test set
+   - set 'model_path' to the path of your finetuned phi-2 model
+   - when running main.py for the first time, set create_BM26_nodes to True
    
 ## Explanations of features used
+<!-- add node that mentions the base code's source -->
+- chunking method
+
+- self extend
+
+- hybrid retriever
 
 
 ## Environment for the code to be run (conda environment.yml file or an environment.txt file)
 
 
 ## Hardware needed (e.g. Google Colab or the specifications of your local machine)
-
+1 L4 GPU
 
 ## Expected run time for each notebook. 
 <!-- This will be useful to the review team for time and resource allocation. -->
@@ -66,6 +75,10 @@ This file contains the target for the training.txt file.
 TeleQnA_testing1.txt
 177.5 KB
 This is the file you will apply your model to.
+
+questions_new.txt
+867.7 KB
+additional testing data.
 
 TeleQnA_training.txt
 1 MB
