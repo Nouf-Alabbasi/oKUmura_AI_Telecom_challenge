@@ -31,7 +31,7 @@
 ```
 ## Order in which to run code
 1. Clone this repo
-2. Install packages from requirements (pip install -r requirements.txt)
+2. Install packages from requirements ``pip install -r requirements.txt)``
 3. Download data
    - Download competition data and copy it to data/ directory inside your cloned repository
    - Extract rel18 folder from rel18.rar
@@ -39,7 +39,7 @@
 5. Run vectore_store_for_rag.py to obtain and store the vectorized documents
 <!-- added flash_attn to requirements.txt -->
 6. Run fine_tuning.py to finetune the model on the teleqna training with retreived context
-7. Run main.py to run inference on the test set
+7. Run main.py to run inference on the test set, but make the following changes first
    - set 'model_path' to the path of your finetuned phi-2 model
    - when running main.py for the first time, set create_BM26_nodes to True
    
@@ -54,6 +54,18 @@
 - rerank
 
 - hybrid retriever
+
+- embedding model
+
+- Fine-tuned Small language model
+   * small language model: Phi-2
+      - Phi-2 is a Transformer with 2.7 billion parameters developed by Microsoft, designed for natural language understanding and generation tasks.
+      - limitations:
+         - **Unreliable Responses to Instruction**: The model lacks instruction fine-tuning, making it less effective at following complex or detailed user instructions.
+         - **Language Limitations**: Primarily designed for standard English, the model may struggle with informal language, slang, or other languages, leading to misunderstandings or errors.
+   * Finetuning:
+      - the model was finetuned on a question-answer set. The question was presented within the same prompt used at in the inference stage, which included instuctions, the question, and the context. The question set included telecom questions to mitigate the language limitation of the model.
+
 
 
 ## Environment for the code to be run (conda environment.yml file or an environment.txt file)
