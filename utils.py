@@ -2,13 +2,63 @@ import pandas as pd
 import re
 from pathlib import Path
 import os
+import datasets
+from datasets import Dataset
 import shutil
 from tqdm import tqdm
 from transformers.models.phi.modeling_phi import PhiForCausalLM
 from transformers.models.codegen.tokenization_codegen_fast import CodeGenTokenizerFast
 from peft.peft_model import PeftModelForCausalLM
 from llama_index.core.query_engine.retriever_query_engine import RetrieverQueryEngine
+from llama_index.core.retrievers import (
+    BaseRetriever, VectorIndexRetriever, KeywordTableSimpleRetriever
+)
+from llama_index.core import (
+    Settings, SimpleDirectoryReader, VectorStoreIndex, StorageContext,
+    QueryBundle, get_response_synthesizer
+)
+from llama_index.core.schema import NodeWithScore
 from nltk.tokenize import word_tokenize
+from typing import List
+
+class hybrid_retreiver(BaseRetriever):
+    """Custom retriever that performs both semantic search and hybrid search."""
+
+    def __init__(
+        self,
+        vector_retriever: VectorIndexRetriever,
+        keyword_retriever: KeywordTableSimpleRetriever,
+        mode: str = "OR",
+    ) -> None:
+        """Init params."""
+
+        self._vector_retriever = vector_retriever
+        self._keyword_retriever = keyword_retriever
+        if mode not in ("AND", "OR"):
+            raise ValueError("Invalid mode.")
+        self._mode = mode
+        super().__init__()
+
+    def _retrieve(self, query_bundle: QueryBundle) -> List[NodeWithScore]:
+        """Retrieve nodes given query."""
+
+        vector_nodes = self._vector_retriever.retrieve(query_bundle)
+        keyword_nodes = self._keyword_retriever.retrieve(query_bundle)
+
+        vector_ids = {n.node.node_id for n in vector_nodes}
+        keyword_ids = {n.node.node_id for n in keyword_nodes}
+
+        combined_dict = {n.node.node_id: n for n in vector_nodes}
+        combined_dict.update({n.node.node_id: n for n in keyword_nodes})
+
+        if self._mode == "AND":
+            retrieve_ids = vector_ids.intersection(keyword_ids)
+        else:
+            retrieve_ids = vector_ids.union(keyword_ids)
+
+        retrieve_nodes = [combined_dict[rid] for rid in retrieve_ids]
+        return retrieve_nodes
+
 
 def remove_release_number(data: pd.DataFrame,
                           column: str) -> pd.DataFrame:
@@ -149,18 +199,6 @@ def generate_prompt(row: pd.Series,
     Answer:
     """
     return prompt
-    # prompt = f"""
-    # Provide a correct answer to a multiple choice question. Use only one option from A, B, C, D or E.
-    # {row['question']}
-    # A) {row['option 1']}
-    # B) {row['option 2']}
-    # C) {row['option 3']}
-    # D) {row['option 4']}
-    # {get_option_5(row)}
-    # {context}
-    # Answer:
-    # """
-    #return prompt
 
 def llm_inference(data: pd.DataFrame,
                   model: PhiForCausalLM | PeftModelForCausalLM,
@@ -308,3 +346,62 @@ def create_dir_with_sampled_docs(docs_path: str,
     # Copy files
     for file_name in sampled_docs:
         shutil.copy(f'{docs_path}/{file_name}', f'{sampled_docs_path}')
+
+# +++++++++++ used in vector_store_for_rag.py
+def rag_inference_on_train(data: pd.DataFrame,
+                           engine: RetrieverQueryEngine,
+                           output_path: str):
+    """
+    Perform RAG inference on train data and save results. The output will be used in fine-tuning.
+
+    Args:
+        data (pd.DataFrame): A DataFrame with data about questions and their options
+        engine (RetrieverQueryEngine): RAG query engine
+        output_path (str): the path to save the output in
+    """
+    create_empty_directory('results')
+    context_all_train = []
+    for idx, row in tqdm(data[['question', 'answer']].reset_index().iterrows()):
+        question = row['question']
+        answer = row['answer']  # answer is added to simplify output examination
+        response = engine.query(question)
+        try:
+            response_1 = response.source_nodes[0].text
+        except:
+            response_1 = ''
+        response_1 = re.sub('\s+', ' ', response_1)
+        context_all_train.append([question,
+                                  response_1,
+                                  answer])
+        # Print output every 50 questions
+        if idx % 50 == 0:
+            print(question)
+            print(f'\n{response_1}')
+            print(f'\nAnswer:\n{answer}')
+    # Convert to DataFrame and save data
+    context_all_train_df = pd.DataFrame(context_all_train, columns=['Question', 'Context_1', 'Answer'])
+    # Save to .csv for own examination and to .pkl to load in the further processing
+    context_all_train_df.to_csv(output_path+'context_all_train.csv', index=False)
+    context_all_train_df.to_pickle(output_path+'context_all_train.pkl')
+
+
+def save_documents(documents, path):
+    with open(path, 'wb') as file:
+        pickle.dump(documents, file)
+
+def load_documents(path):
+    with open(path, 'rb') as file:
+        return pickle.load(file)
+
+
+# +++++++++++ used in fine_tuning.py
+def tokenize_function(examples: datasets.arrow_dataset.Dataset):
+    """
+    Tokenize input.
+
+    Args:
+        examples (datasets.arrow_dataset.Dataset): Samples to tokenize
+    Returns:
+        tokenized_dataset (datasets.arrow_dataset.Dataset): Tokenized dataset
+    """
+    return tokenizer(examples['text'], max_length=512, padding='max_length', truncation=True)
