@@ -60,7 +60,8 @@
 
 
 ## Hardware needed (e.g. Google Colab or the specifications of your local machine)
-1 L4 GPU
+- hardware: 1 L4 GPU
+- environment: lightning.io studio 
 
 ## Expected run time for each notebook. 
 <!-- This will be useful to the review team for time and resource allocation. -->
@@ -72,22 +73,41 @@
 
 ## Data
 
-Q_A_ID_training.csv
-19.8 KB
-This file contains the target for the training.txt file.
+* Q_A_ID_training.csv
+   * 19.8 KB
+   * This file contains the target for the training.txt file.
 
-TeleQnA_testing1.txt
-177.5 KB
-This is the file you will apply your model to.
+* TeleQnA_training.txt
+   * 1 MB
+   * This is the file you will train your model on. It contains around 1000 questions, these fields are available for each question:
+      - **Question:** This field consists of a string that presents the question associated with a specific concept within the telecommunications domain.
+      - **Options:** This field comprises a set of strings representing the various answer options.
+      - **Answer:** This field contains a string that adheres to the format ’option ID: Answer’ and presents the correct response to the question. A single option is correct; however, options may include choices like “All of the Above” or “Both options 1 and 2”.
+      - **Explanation:** This field encompasses a string that clarifies the reasoning behind the correct answer.
+      - **Category:** This field includes a label identifying the source category (e.g., lexicon, research overview, etc.).
+   * this is an example of a question from the training dataset
+      ```
+      "question 4": {
+         "question": "How does a supporting UE attach to the same core network operator from which it detached in a shared network? [3GPP Release 17]",
+         "option 1": "It requests the core network node to remember its previous selection.",
+         "option 2": "It uses information stored in the UE when it was detached.",
+         "option 3": "It relies on the SIM/USIM card for information.",
+         "option 4": "It performs a fresh attach procedure.",
+         "answer": "option 2: It uses information stored in the UE when it was detached.",
+         "explanation": "A supporting UE in a shared network attaches to the same core network operator it detached from by using information stored in the UE when it was detached.",
+         "category": "Standards specifications"
+      },
+      ```
 
-questions_new.txt
-867.7 KB
-additional testing data.
+* TeleQnA_testing1.txt
+   * 177.5 KB
+   * This is the file you will apply your model to. This file contains 366 questions. The format is similar to the questions in the training dataset, the only difference is that the answer and explanation fields are not included for each questions.
 
-TeleQnA_training.txt
-1 MB
-This is the file you will train your model on.
+* questions_new.txt
+   * 867.7 KB
+   * additional testing data. This file contains 2000 extra test questions.
 
-rel18.rar
-824.4 MB
-This is the corpus of technical documents that you can use e.g., as input for your RAG to provide additional context to the LLM
+
+* rel18.rar
+   * 824.4 MB
+   * This is the corpus of technical documents.
