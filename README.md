@@ -35,7 +35,7 @@
 3. Download data
    - Download competition data and copy it to data/ directory inside your cloned repository
    - Extract rel18 folder from rel18.rar
-4. clone the longLM repo from https://github.com/datamllab/LongLM into the cloned repository
+4. clone the longLM repo from https://github.com/datamllab/LongLM into the cloned repository ``git clone https://github.com/datamllab/LongLM.git``
 5. Run vectore_store_for_rag.py to obtain and store the vectorized documents
 <!-- added flash_attn to requirements.txt -->
 6. Run fine_tuning.py to finetune the model on the teleqna training with retreived context
@@ -45,9 +45,13 @@
    
 ## Explanations of features used
 <!-- add node that mentions the base code's source -->
+<!-- architecture -->
+![figure](figures/v3.png)
 - chunking method
 
 - self extend
+
+- rerank
 
 - hybrid retriever
 
