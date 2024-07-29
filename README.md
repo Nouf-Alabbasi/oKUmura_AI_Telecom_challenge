@@ -56,20 +56,17 @@
 - hybrid retriever
 
 - embedding model
+   * is a lightweight and efficient model designed for high-speed text embedding, chosen for its ability to generate dense vector representations of text that enhance the performance of our retrieval and ranking tasks in the fine-tuned model.
 
 - Fine-tuned Small language model
-   * small language model: Phi-2
+   * **small language model**: Phi-2
       - Phi-2 is a Transformer with 2.7 billion parameters developed by Microsoft, designed for natural language understanding and generation tasks.
       - limitations:
          - **Unreliable Responses to Instruction**: The model lacks instruction fine-tuning, making it less effective at following complex or detailed user instructions.
          - **Language Limitations**: Primarily designed for standard English, the model may struggle with informal language, slang, or other languages, leading to misunderstandings or errors.
-   * Finetuning:
+   * **Finetuning**:
+      - LoRA (Low-Rank Adaptation) was used because it significantly reduced computational and memory requirements while maintaining or improving model performance by adding a small number of trainable parameters, making the process efficient and cost-effective.
       - the model was finetuned on a question-answer set. The question was presented within the same prompt used at in the inference stage, which included instuctions, the question, and the context. The question set included telecom questions to mitigate the language limitation of the model.
-
-
-
-## Environment for the code to be run (conda environment.yml file or an environment.txt file)
-
 
 ## Hardware needed (e.g. Google Colab or the specifications of your local machine)
 - hardware: 1 L4 GPU
