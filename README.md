@@ -54,7 +54,7 @@
 - rerank
 
 - hybrid retriever
-
+   * We used a hybrid retriever combining BM25 and a dense vector retriever to leverage the strengths of both methods: BM25 for precise keyword-based matching and the dense vector retriever for capturing semantic similarities, ensuring comprehensive and accurate retrieval of relevant information.
 - embedding model
    * is a lightweight and efficient model designed for high-speed text embedding, chosen for its ability to generate dense vector representations of text that enhance the performance of our retrieval and ranking tasks in the fine-tuned model.
 
