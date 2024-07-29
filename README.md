@@ -47,19 +47,19 @@
 <!-- add node that mentions the base code's source -->
 <!-- architecture -->
 ![figure](figures/v_3.1.png)
-- chunking method
+- ### chunking method
 
-- self extend
+- ### self extend
 
-- rerank
+- ### rerank
 
-- hybrid retriever
+- ### hybrid retriever
    * We used a hybrid retriever combining BM25 and a dense vector retriever to leverage the strengths of both methods: BM25 for precise keyword-based matching and the dense vector retriever for capturing semantic similarities, ensuring comprehensive and accurate retrieval of relevant information.
-   
-- embedding model
+
+- ### embedding model
    * BAAI/bge-small-en-v1.5 is a lightweight and efficient model designed for high-speed text embedding, chosen for its ability to generate dense vector representations of text that enhance the performance of our retrieval and ranking tasks in the fine-tuned model.
 
-- Fine-tuned Small language model
+- ### Fine-tuned Small language model
    * **small language model**: Phi-2
       - Phi-2 is a Transformer with 2.7 billion parameters developed by Microsoft, designed for natural language understanding and generation tasks.
       - limitations:
@@ -71,7 +71,8 @@
 
 ## Hardware needed (e.g. Google Colab or the specifications of your local machine)
 - hardware: 1 L4 GPU
-- environment: lightning.io studio 
+- environment: 
+   - python version: 3.10.10
 
 ## Expected run time for each notebook. 
 <!-- This will be useful to the review team for time and resource allocation. -->
