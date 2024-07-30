@@ -19,7 +19,6 @@ import json
 DOCS_PATH = 'data/rel18'
 SAVED_DOCS_PATH = 'data/saved_documents.pkl'
 VECTOR_PATH = 'data/rag_vector_default/index'
-VECTOR_PATH = '/teamspace/studios/omar-llm-challenge-studio-78/data/rag_vector_default/index'
 CREATE_VECTOR_DB = False
 RAG_INFERENCE = True
 
@@ -67,7 +66,7 @@ if RAG_INFERENCE:
     
 
     # +++++++++++++++++++++++++++++++++ get chunks for questions
-    train = pd.read_json('TeleQnA.txt').T
+    train = pd.read_json('data/TeleQnA.txt').T
     # Get question ID column (a number of the question)
     train['Question_ID'] = train.index.str.split(' ').str[-1]
     # +++++++++++++++++++++++++++++++++ train = train.drop(columns=["The correct asnwer is option 3"])

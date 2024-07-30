@@ -7,6 +7,7 @@ from datasets import Dataset
 import shutil
 from tqdm import tqdm
 from transformers.models.phi.modeling_phi import PhiForCausalLM
+from transformers import AutoTokenizer
 from transformers.models.codegen.tokenization_codegen_fast import CodeGenTokenizerFast
 from peft.peft_model import PeftModelForCausalLM
 from llama_index.core.query_engine.retriever_query_engine import RetrieverQueryEngine
@@ -20,6 +21,9 @@ from llama_index.core import (
 from llama_index.core.schema import NodeWithScore
 from nltk.tokenize import word_tokenize
 from typing import List
+import subprocess
+import sys
+
 
 class hybrid_retreiver(BaseRetriever):
     """Custom retriever that performs both semantic search and hybrid search."""
@@ -394,14 +398,12 @@ def load_documents(path):
         return pickle.load(file)
 
 
-# +++++++++++ used in fine_tuning.py
-def tokenize_function(examples: datasets.arrow_dataset.Dataset):
-    """
-    Tokenize input.
 
-    Args:
-        examples (datasets.arrow_dataset.Dataset): Samples to tokenize
-    Returns:
-        tokenized_dataset (datasets.arrow_dataset.Dataset): Tokenized dataset
-    """
-    return tokenizer(examples['text'], max_length=512, padding='max_length', truncation=True)
+def install_package(package_name):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+
+def uninstall_package(package_name):
+    subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "-y", package_name])
+
+def update_package(package_name):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", package_name])

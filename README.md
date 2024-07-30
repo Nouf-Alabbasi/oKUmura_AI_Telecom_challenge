@@ -6,25 +6,22 @@
 ├── LongLM
 ├── __pycache__
 ├── data
-│ ├── rag_vector_default
-│ ├── rel18
-│ ├── Q_A_ID_training.csv
-│ ├── TeleQnA_testing1.txt
-│ ├── TeleQnA_training.txt
 │ ├── questions_new.txt
-│ └── saved_documents.pkl
+│ ├── TeleQnA.json
+│ └── TeleQnA.txt
 ├── models
 │ └── peft_phi_2_v3
+├── results
+│ ├── context_all_train.pkl
+│ └── context_all_train.csv
 ├── nltk_data
 ├── results
 ├── .viminfo
 ├── README.md
-├── TeleQnA.txt
 ├── context_save.py
 ├── data_process.ipynb
 ├── fine_tuning.py
 ├── main_temp.py
-├── questions_answers.csv
 ├── requirements.txt
 ├── utils.py
 └── vector_store_for_rag.py
@@ -84,12 +81,11 @@
 * expected time for inference
    * ~40 minutes for set 1
    * 2 hrs for full test set
+   * +the time it takes to create nodes
 
 
 
 ## Data
-
-
 * TeleQnA_training.txt
    * 1 MB
    * This is the file you will train your model on. It contains around 1000 questions, these fields are available for each question:

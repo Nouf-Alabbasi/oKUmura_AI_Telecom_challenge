@@ -1,3 +1,10 @@
+from utils import (
+    remove_release_number, llm_inference, get_results_with_labels, create_empty_directory, hybrid_retreiver, uninstall_package, install_package
+)
+# install correct version of transfomers
+uninstall_package("transformers")
+install_package("transformers==4.38.2")
+
 import os
 import sys
 import re
@@ -28,9 +35,6 @@ from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.retrievers.bm25 import BM25Retriever
 
-from utils import (
-    remove_release_number, llm_inference, get_results_with_labels, create_empty_directory, hybrid_retreiver
-)
 
 import warnings
 # Suppress specific deprecation warnings
@@ -57,9 +61,9 @@ MODEL_USED = 'Phi-2'
 DO_TRAIN_INFERENCE = False  # do train inference (True) or only test inference (False)
 PERFORM_RAG = True
 create_BM26_retriever = False
-
-#TODO change model path to your model's path
 model_path = "models/"
+# model_path = '/teamspace/studios/omar-llm-challenge-studio-78/models/peft_phi_2_v3'
+model_path = 'models/peft_phi_2_Q16_B8_r_512_1024_lr_1e_4_decay_0.01' #to_remove
 
 model_name_ = model_path.split('/')
 model_name_ = model_name_[-1]
@@ -82,6 +86,7 @@ train = pd.read_json('data/TeleQnA_training.txt').T
 labels = pd.read_csv('data/Q_A_ID_training.csv')
 test = pd.read_json('data/TeleQnA_testing1.txt').T
 test_new = pd.read_json('data/questions_new.txt').T
+
 test = pd.concat([test, test_new])
 
 # Create question ID column (question number)
@@ -130,6 +135,7 @@ if create_BM26_retriever:
 top_k = 150
 vector_retriever = index.as_retriever(similarity_top_k=top_k)
 bm25_retriever = BM25Retriever.from_persist_dir("./bm25_retriever")
+# bm25_retriever = BM25Retriever.from_persist_dir("/teamspace/studios/omar-llm-challenge-studio-se-test/bm25_retriever") #to_remove
 
 custom_retriever = hybrid_retreiver(vector_retriever, bm25_retriever)
 

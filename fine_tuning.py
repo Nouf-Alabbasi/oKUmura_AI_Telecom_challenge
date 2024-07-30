@@ -1,3 +1,6 @@
+from utils import remove_release_number, encode_answer, generate_prompt, llm_inference, get_results_with_labels, update_package
+# update transfomers to the latest version
+update_package('transformers')
 import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, Trainer, TrainingArguments, \
@@ -6,9 +9,19 @@ import datasets
 from datasets import Dataset
 from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
 import os
-from utils import remove_release_number, encode_answer, generate_prompt, llm_inference, get_results_with_labels, tokenize_function
 from transformers.trainer_utils import get_last_checkpoint
 from peft import PeftModel, PeftConfig
+
+def tokenize_function(examples: datasets.arrow_dataset.Dataset):
+    """
+    Tokenize input.
+
+    Args:
+        examples (datasets.arrow_dataset.Dataset): Samples to tokenize
+    Returns:
+        tokenized_dataset (datasets.arrow_dataset.Dataset): Tokenized dataset
+    """
+    return tokenizer(examples['text'], max_length=512, padding='max_length', truncation=True)
 
 # +++++++++++++++++++++++++++++++++ setup ++++++++++++++++++++++++++++++++++++++++++++++
 weight_decay = 0.01
@@ -16,12 +29,13 @@ rank =  512
 alpha = 1024
 Quant = 16
 batch_size = 8
+dropout = 0.05
 learning_rate = 1e-4
 lr= "1e_4"
 
 
 context_file = "results/context_all_train.pkl" # you get this file after running vector_store_for_rag with RAG_INFERENCE = True
-model_name = f"peft_phi_2_Q{Quant}_B{batch_size}_r_{rank}_{alpha}_lr_{lr}_decay_{decay}"
+model_name = f"peft_phi_2_Q{Quant}_B{batch_size}_r_{rank}_{alpha}_lr_{lr}_decay_{weight_decay}"
 print(f"\n+++++++++++++ model name is {model_name}\n")
 
 
@@ -46,8 +60,8 @@ else:
 
 # +++++++++++++++++++++++++++++++++ load mode and tokanizer ++++++++++++++++++++++++++++
 model = AutoModelForCausalLM.from_pretrained(MODEL_PATH,
-                                            trust_remote_code=True,
-                                            quantization_config=bnb_config)
+                                            trust_remote_code=True) #,
+                                            #quantization_config=bnb_config)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH,
                                           trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
@@ -55,8 +69,8 @@ tokenizer.pad_token = tokenizer.eos_token
 
 # +++++++++++++++++++++++++++++++++ prepare data
 print("\n+++++++++++++ preparing data")
-train = pd.read_json('TeleQnA.txt').T
-labels = pd.read_csv('questions_answers.csv')
+train = pd.read_json('data/TeleQnA.txt').T
+labels = pd.read_csv('data/questions_answers.csv')
 
 labels = labels.fillna('')
 
