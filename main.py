@@ -135,7 +135,6 @@ if create_BM26_retriever:
 top_k = 150
 vector_retriever = index.as_retriever(similarity_top_k=top_k)
 bm25_retriever = BM25Retriever.from_persist_dir("./bm25_retriever")
-# bm25_retriever = BM25Retriever.from_persist_dir("/teamspace/studios/omar-llm-challenge-studio-se-test/bm25_retriever") #to_remove
 
 custom_retriever = hybrid_retreiver(vector_retriever, bm25_retriever)
 
