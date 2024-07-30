@@ -47,11 +47,11 @@
 <!-- add node that mentions the base code's source -->
 <!-- architecture -->
 ![figure](figures/v_3.1.png)
-- ### chunking method
+- ### rerank
+   * After retrieves large list of context chunks, the chunks are ranked based on the relevancy score from a cross-encoder. A shortlist is derived the reranke list of context chunks. We used ms-marco-MiniLM-L-6-v2, this model demonstrates relatively high speed and decent accuracy.
 
 - ### self extend
-
-- ### rerank
+   * Self-extend is a technique that uses two-Level attention to allow the LLMs to handle longer input, alleviating the need for finetuning. Given the long input given to the LLM, self-extend has been a promising tool that improved perfomance and also opened up the door for techniques like semantic chunking, where the chunks are naturally long, to be effectively used. 
 
 - ### hybrid retriever
    * We used a hybrid retriever combining BM25 and a dense vector retriever to leverage the strengths of both methods: BM25 for precise keyword-based matching and the dense vector retriever for capturing semantic similarities, ensuring comprehensive and accurate retrieval of relevant information.
@@ -76,18 +76,19 @@
 
 ## Expected run time for each notebook. 
 <!-- This will be useful to the review team for time and resource allocation. -->
-* expected time to create vector store
-* expected time for fine-tuning 
-   * start time: 4:11
+* expected time to create vector store 
+   * ~ 4 hrs for chunking and vector db
+   * ~ 5 hrs for the context retreival
+* expected time for fine-tuning
+   * ~ 2 hrs
 * expected time for inference
+   * ~40 minutes for set 1
+   * 2 hrs for full test set
 
 
 
 ## Data
 
-* Q_A_ID_training.csv
-   * 19.8 KB
-   * This file contains the target for the training.txt file.
 
 * TeleQnA_training.txt
    * 1 MB
@@ -111,6 +112,10 @@
       },
       ```
 
+* Q_A_ID_training.csv
+   * 19.8 KB
+   * This file contains the target for the training.txt file.
+
 * TeleQnA_testing1.txt
    * 177.5 KB
    * This is the file you will apply your model to. This file contains 366 questions. The format is similar to the questions in the training dataset, the only difference is that the answer and explanation fields are not included for each questions.
@@ -119,7 +124,8 @@
    * 867.7 KB
    * additional testing data. This file contains 2000 extra test questions.
 
-
 * rel18.rar
    * 824.4 MB
    * This is the corpus of technical documents.
+
+<!-- we might need to add the teleqna.json file here too -->
