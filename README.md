@@ -3,18 +3,14 @@
 <!--├── .lightning_studio -->
 ```
 .
-├── LongLM
-├── __pycache__
 ├── data
 │ ├── questions_new.txt
 │ ├── TeleQnA.json
 │ └── TeleQnA.txt
 ├── models
-│ └── peft_phi_2_v3
 ├── results
 │ ├── context_all_train.pkl
 │ └── context_all_train.csv
-├── nltk_data
 ├── .viminfo
 ├── README.md
 ├── fine_tuning.py
