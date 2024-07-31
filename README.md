@@ -96,7 +96,7 @@
 
 
 ## Data
-* TeleQnA_training.txt
+* ### TeleQnA_training.txt
    * 1 MB
    * This file contains the training data. It contains around 1000 questions, these fields are available for each question:
       - **Question:** This field consists of a string that presents the question associated with a specific concept within the telecommunications domain.
@@ -118,15 +118,15 @@
       },
       ```
 
-* Q_A_ID_training.csv
+* ### Q_A_ID_training.csv
    * 19.8 KB
    * This file contains the target for the training.txt file.
 
-* TeleQnA_testing1.txt
+* ### TeleQnA_testing1.txt
    * 177.5 KB
    * This is the file you will apply your model to. This file contains 366 questions. The format is similar to the questions in the training dataset, the only difference is that the answer and explanation fields are not included for each question.
 
-* questions_new.txt
+* ### questions_new.txt
    * 867.7 KB
    * additional testing data. This file contains 2000 extra test questions.
 
