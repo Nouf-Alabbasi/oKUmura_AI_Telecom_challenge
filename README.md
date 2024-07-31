@@ -70,7 +70,7 @@
       - limitations:
          - **Unreliable Responses to Instruction**: The model lacks instruction fine-tuning, making it less effective at following complex or detailed user instructions.
          - **Language Limitations**: Primarily designed for standard English, the model may struggle with informal language, slang, or other languages, leading to misunderstandings or errors.
-   * **Finetuning**:
+   * **Instruction/supervised Finetuning**:
       - LoRA (Low-Rank Adaptation) was used because it significantly reduced computational and memory requirements while maintaining or improving model performance by adding a small number of trainable parameters, making the process efficient and cost-effective.
       - the model was finetuned on a question-answer set. The question was presented within the same prompt used in the inference stage, which included instructions, the question, and the context. The question set included telecom questions to mitigate the model's language limitation.
 
