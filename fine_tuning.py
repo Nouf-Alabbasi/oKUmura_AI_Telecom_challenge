@@ -1,7 +1,7 @@
 from utils import remove_release_number, encode_answer, generate_prompt, llm_inference, get_results_with_labels, update_package
 
 # update transfomers to the latest version
-# update_package('transformers')
+update_package('transformers')
 
 import pandas as pd
 import torch
