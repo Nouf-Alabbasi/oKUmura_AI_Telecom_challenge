@@ -12,7 +12,6 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 │ ├── TeleQnA.json
 │ └── TeleQnA.txt
 ├── models
-│ └── peft_phi_2_finetuned
 ├── results
 │ ├── context_all_train.pkl
 │ └── context_all_train.csv
@@ -49,8 +48,7 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 5. Run ``vectore_store_for_rag.py`` to obtain and store the vectorized documents
 <!-- added flash_attn to requirements.txt -->
 6. Run ``fine_tuning.py`` to finetune the model on the teleQnA training with retrieved-context
-   - You can use our pre-finetuned model, ``peft_phi_2_finetuned``, if you prefer not to run the fine-tuning step yourself. This model has already been fine-tuned with the hyperparameters set in the file.
-8. Run ``main.py`` to run inference on the test set, but make the following changes first
+7. Run ``main.py`` to run inference on the test set, but make the following changes first
    - set 'model_path' to the path of your finetuned phi-2 model
    - when running main.py for the first time, set create_BM26_nodes to True
    
