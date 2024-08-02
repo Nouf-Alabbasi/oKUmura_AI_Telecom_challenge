@@ -93,7 +93,7 @@ Key challenges included addressing the complexity and diversity of the telecom-s
 * expected time for fine-tuning
    * ~ 2 hrs
 * expected time for inference
-   * ~40 minutes for set 1
+   * ~40 minutes for test set 1
    * 2 hrs for full test set
    * + the time it takes to create nodes
 
