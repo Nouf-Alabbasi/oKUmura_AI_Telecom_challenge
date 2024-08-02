@@ -101,7 +101,8 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 ## Data
 * ### TeleQnA_training.txt
    * 1 MB
-   * This file contains the training data. It contains around 1000 questions, these fields are available for each question:
+   * This file contains the training data. It contains around 1000 questions. The model was fine-tuned on the whole teleQnA dataset provided in this repository
+   * these are the fields available for each question:
       - **Question:** This field consists of a string that presents the question associated with a specific concept within the telecommunications domain.
       - **Options:** This field comprises a set of strings representing the various answer options.
       - **Answer:** This field contains a string that adheres to the format ’option ID: Answer’ and presents the correct response to the question. A single option is correct; however, options may include choices like “All of the Above” or “Both options 1 and 2”.
