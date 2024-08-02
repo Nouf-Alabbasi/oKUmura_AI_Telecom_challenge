@@ -12,6 +12,7 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 │ ├── TeleQnA.json
 │ └── TeleQnA.txt
 ├── models
+│ └── peft_phi_2_finetuned
 ├── results
 │ ├── context_all_train.pkl
 │ └── context_all_train.csv
