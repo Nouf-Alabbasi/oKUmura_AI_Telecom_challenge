@@ -57,7 +57,7 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 <!-- architecture -->
 ![figure](figures/v_3.1.png)
 - ### rerank
-   * After retrieving a large list of context chunks, the chunks are ranked based on the relevancy score from a cross-encoder. A shortlist is derived the reranke list of context chunks. We used ms-marco-MiniLM-L-6-v2, this model demonstrates relatively high speed and decent accuracy.
+   * After retrieving a large list of context chunks, the chunks are ranked based on the relevancy score from a cross-encoder. A shortlist is derived the reranked list of context chunks. We used ms-marco-MiniLM-L-6-v2, this model demonstrates relatively high speed and decent accuracy.
 
 - ### self extend
    * Self-extend is a technique that uses two-level attention to allow the LLMs to handle longer input, alleviating the need for finetuning. Given the long input given to the LLM, self-extend has been a promising tool that improved performance and also opened up the door for techniques like semantic chunking, where the chunks are naturally long, to be effectively used. 
