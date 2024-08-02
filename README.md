@@ -1,7 +1,7 @@
 # Specializing Large Language Models for Telecom Networks by ITU AI/ML in 5G Challenge
 In the "AI for Good" competition, we were required to specialize large language models (LLMs) like Falcon 7.5B and Phi-2 on telecom knowledge. Using the TeleQnA dataset, participants aimed to enhance the models' accuracy on multiple-choice questions related to various telecom domains. This competition was organized by the International Telecommunication Union (ITU), Huawei Technologies, and the Technology Innovation Institute (TII).
 
-Key challenges included addressing the complexity and diversity of the telecom-specific questions, mitigating LLM hallucinations and fabrications, and improving model explainability. Participants employed techniques such as Retrieval Augmented Generation (RAG), prompt engineering, and fine-tuning to achieve these goals. This competition provided a platform for advancing the application of LLMs in the telecommunications industry.
+A Key challenge included addressing the complexity and diversity of the telecom-specific questions. Participants employed techniques such as Retrieval Augmented Generation (RAG), prompt engineering, and fine-tuning to achieve these goals. This competition provided a platform for advancing the application of LLMs in the telecommunications industry.
 
 ## Folder set up
 <!--├── .lightning_studio -->
