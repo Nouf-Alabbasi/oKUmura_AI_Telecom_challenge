@@ -82,7 +82,10 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 - hardware: 1 L4 GPU
 - environment: 
    - python version: 3.10.10
-   - Required Python packages (listed in `requirements.txt`)
+   - Required Python packages (listed in `requirements.txt`). the list includes, among others, the following packages:
+     - `transformers`
+     - `torch` (PyTorch)
+     - `llama-index`
 
 
 ## Expected run time for each notebook. 
@@ -102,13 +105,13 @@ A Key challenge included addressing the complexity and diversity of the telecom-
 * ### TeleQnA_training.txt
    * 1 MB
    * This file contains the training data. It contains around 1000 questions. The model was fine-tuned on the whole teleQnA dataset provided in this repository
-   * these are the fields available for each question:
+   * These are the fields available for each question:
       - **Question:** This field consists of a string that presents the question associated with a specific concept within the telecommunications domain.
       - **Options:** This field comprises a set of strings representing the various answer options.
       - **Answer:** This field contains a string that adheres to the format ’option ID: Answer’ and presents the correct response to the question. A single option is correct; however, options may include choices like “All of the Above” or “Both options 1 and 2”.
       - **Explanation:** This field encompasses a string that clarifies the reasoning behind the correct answer.
       - **Category:** This field includes a label identifying the source category (e.g., lexicon, research overview, etc.).
-   * this is an example of a question from the training dataset
+   * This is an example of a question from the training dataset
       ```
       "question 4": {
          "question": "How does a supporting UE attach to the same core network operator from which it detached in a shared network? [3GPP Release 17]",
