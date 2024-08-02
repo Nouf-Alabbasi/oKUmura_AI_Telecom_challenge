@@ -96,7 +96,7 @@ A Key challenge included addressing the complexity and diversity of the telecom-
    * ~ 2 hrs
 * expected time for inference
    * ~40 minutes for test set 1
-   * 2 hrs for full test set
+   * ~ 2 hrs for full test set
    * + the time it takes to create nodes
 
 
