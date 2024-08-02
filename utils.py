@@ -242,8 +242,8 @@ def llm_inference(data: pd.DataFrame,
             prompt_context = ''
         prompt = generate_prompt(question, prompt_context)
         if show_prompts:
-            print(f"\n{question['Question_ID']}")
-            print(prompt)
+            # print(f"\n{question['Question_ID']}")
+            # print(prompt)
         inputs = tokenizer(prompt, return_tensors="pt", return_attention_mask=False)
         # Generate only one new character. It should be our answer
         outputs = model.generate(**inputs, max_length=inputs[0].__len__()+1, pad_token_id=tokenizer.eos_token_id)
@@ -255,23 +255,23 @@ def llm_inference(data: pd.DataFrame,
             #print(answer)
         except:
             try:
-                print(f"Question {question['Question_ID']} output was improper ({answer_letter})! Checking if it \
-wasn't because of spaces...")
+                # print(f"Question {question['Question_ID']} output was improper ({answer_letter})! Checking if it \
+# wasn't because of spaces...")
                 # Get some more output
                 outputs = model.generate(**inputs, max_length=inputs[0].__len__()+14, pad_token_id=tokenizer.eos_token_id)
-                print(f'Full output:\n{tokenizer.batch_decode(outputs)[0]}')
+                # print(f'Full output:\n{tokenizer.batch_decode(outputs)[0]}')
                 answer_letter = tokenizer.batch_decode(outputs)[0][len(prompt)-20:len(prompt)+50]
                 # Find answer in the generated output
                 answer_letter = re.findall('(A|B|C|D|E)\)', answer_letter)[0]
                 answer = encode_answer(answer_letter)
-                print(f'New answer: {answer}')
+                # print(f'New answer: {answer}')
             except:
-                print(f"Question {question['Question_ID']} output was improper ({answer_letter})! Changing answer to 1")
+                # print(f"Question {question['Question_ID']} output was improper ({answer_letter})! Changing answer to 1")
                 answer = 1
                 # Generate more characters to check what is created with the model
                 outputs = model.generate(**inputs, max_length=inputs[0].__len__()+20, pad_token_id=tokenizer.eos_token_id)
                 answer_letter = tokenizer.batch_decode(outputs)[0]
-                print(answer_letter)
+                # print(answer_letter)
                 if store_wrong:
                     wrong_format.append([question['Question_ID'], answer_letter])
         answers.append([question['Question_ID'], answer])
