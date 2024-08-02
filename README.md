@@ -3,7 +3,7 @@ In the "AI for Good" competition, we were required to specialize large language 
 
 A Key challenge included addressing the complexity and diversity of the telecom-specific questions. Participants employed techniques such as Retrieval Augmented Generation (RAG), prompt engineering, and fine-tuning to achieve these goals. This competition provided a platform for advancing the application of LLMs in the telecommunications industry.
 
-Our model gets has an accuracy of 78.9% on 2000 questions dataset and 81.6% on the test set with 366 questions.
+Our model has an accuracy of 78.9% on the 2000-question test set and 81.6% on the test set with 366 questions.
 
 ## Folder set up
 <!--├── .lightning_studio -->
