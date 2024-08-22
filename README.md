@@ -57,7 +57,7 @@ Our model has an accuracy of 78.9% on the 2000-question test set and 81.6% on th
 ## Explanations of features used
 <!-- add node that mentions the base code's source -->
 <!-- architecture -->
-![figure](figures/v_3.1.png)
+![figure](figures/arch_v3.png)
 - ### rerank
    * After retrieving a large list of context chunks, the chunks are ranked based on the relevancy score from a cross-encoder. A shortlist is derived the reranked list of context chunks. We used ms-marco-MiniLM-L-6-v2, this model demonstrates relatively high speed and decent accuracy.
 
