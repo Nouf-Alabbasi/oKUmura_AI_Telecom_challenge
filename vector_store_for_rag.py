@@ -16,6 +16,8 @@ import os
 import pickle
 import json
 
+# NOTE: some functions are adopted and modified from https://github.com/progin2037/specializing_llm_for_telecom_networks
+
 DOCS_PATH = 'data/rel18'
 SAVED_DOCS_PATH = 'data/saved_documents.pkl'
 VECTOR_PATH = 'data/rag_vector_default/index'
