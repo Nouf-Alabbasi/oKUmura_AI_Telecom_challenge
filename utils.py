@@ -24,7 +24,7 @@ from typing import List
 import subprocess
 import sys
 
-
+# NOTE: some functions are adopted and modified from https://github.com/progin2037/specializing_llm_for_telecom_networks
 class hybrid_retreiver(BaseRetriever):
     """Custom retriever that performs both semantic search and hybrid search."""
 
